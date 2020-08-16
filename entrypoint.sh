@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Source: https://github.com/vladgh/docker_base_images/blob/master/minidlna/entrypoint.sh
+
 # Bash strict mode
 set -euo pipefail
 IFS=$'\n\t'
@@ -8,7 +10,7 @@ pidfile="/minidlna/minidlna.pid"
 # Remove old pid if it exists
 [ -f $pidfile ] && rm -f $pidfile
 
-# Change configuration
+# Update configuration
 : > /etc/minidlna.conf
 for VAR in $(env); do
   if [[ "$VAR" =~ ^MINIDLNA_ ]]; then
@@ -21,6 +23,7 @@ for VAR in $(env); do
     echo "${minidlna_name}=${minidlna_value}" >> /etc/minidlna.conf
   fi
 done
+
 # Directories have to be in a writeable place
 echo "db_dir=/minidlna/cache" >> /etc/minidlna.conf
 echo "log_dir=/minidlna/" >>/etc/minidlna.conf
