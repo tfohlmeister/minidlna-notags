@@ -1,0 +1,31 @@
+diff --git a/metadata.c b/metadata.c
+index 8a10c77..5492fc8 100644
+--- a/metadata.c
++++ b/metadata.c
+@@ -372,21 +372,11 @@ GetAudioMetadata(const char *path, const char *name)
+ 	if( song.year )
+ 		xasprintf(&m.date, "%04d-01-01", song.year);
+ 	m.duration = duration_str(song.song_length);
+-	if( song.title && *song.title )
+-	{
+-		m.title = trim(song.title);
+-		if( (esc_tag = escape_tag(m.title, 0)) )
+-		{
+-			free_flags |= FLAG_TITLE;
+-			m.title = esc_tag;
+-		}
+-	}
+-	else
+-	{
+-		free_flags |= FLAG_TITLE;
+-		m.title = strdup(name);
+-		strip_ext(m.title);
+-	}
++	
++	free_flags |= FLAG_TITLE;
++	m.title = strdup(name);
++	strip_ext(m.title);
++
+ 	for( i = ROLE_START; i < N_ROLE; i++ )
+ 	{
+ 		if( song.contributor[i] && *song.contributor[i] )
