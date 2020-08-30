@@ -29,4 +29,4 @@ echo "db_dir=/minidlna/cache" >> /etc/minidlna.conf
 echo "log_dir=/minidlna/" >>/etc/minidlna.conf
 
 # Start daemon
-exec /usr/local/sbin/minidlnad -P $pidfile -S "$@"
+exec /usr/local/sbin/minidlnad -r -P $pidfile -S "$@"
